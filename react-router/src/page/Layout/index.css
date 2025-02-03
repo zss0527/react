@@ -1,0 +1,13 @@
+.flex {
+    display: flex;
+    justify-content: space-around;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+}
+
+.border{
+    border: 1px solid red;
+}

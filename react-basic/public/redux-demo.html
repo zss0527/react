@@ -1,0 +1,72 @@
+<button id="decrement">-</button>
+<span id="count">0</span>
+<button id="increment">+</button>
+
+<script src="https://cdn.bootcss.com/redux/4.0.0/redux.js"></script>
+<script>
+    /*Redux
+        Redux是react最常用的状态管理工具，用于解决组件之间的数据传递问题，可独立运行于任何UI层框架
+        通过集中是管理的方式管理应用的状态
+        Redux的核心概念：state、store、action、reducer
+        state: 一个对象，存放管理的数据状态
+        store：一个对象，保存数据的地方，整个应用只有一个store，存放state
+        action：一个对象，描述怎么修改数据
+        reducer：一个函数，根据action更新state
+        Redux的数据流：view -> action -> reducer -> store -> view
+        Redux的工作流程：
+        1.组件通过dispatch一个action来更新state
+        2.Reducer接收action，返回新的state
+        3.新的state保存在store中
+        4.组件通过订阅store来获取state
+        Redux的使用步骤：
+        1.安装redux：npm install redux
+        2.创建reducer：const reducer = (state, action) => {return newState;}
+        3.创建store：import { createStore } from 'redux'; const store = createStore(reducer);
+        4.创建action：const action = {type: 'ADD', payload: 1};
+        5.派发action：store.dispatch(action);
+        6.订阅store：store.subscribe(() => {console.log(store.getState());});
+        7.获取state：store.getState();
+    */
+
+
+    //1. 定义reducer函数
+    //作用： 根据不同的action对象返回不同的新的state,不能直接修改原始state
+    function reducer(state = { count: 0 }, action) {
+        if (action.type === 'Increment') {
+            return { count: state.count + 1 }
+        } else {
+            return { count: state.count - 1 }
+        }
+    }
+
+    //2. 使用reducer函数生成store实例
+    const store = Redux.createStore(reducer)
+
+    //3. 通过store实例的subscribe订阅数据的变化
+    //回调函数会在每次state变化执行
+    store.subscribe(() => {
+        console.log("state发生了变化", store.getState())
+        //5. 通过store实例的getState方法获取最新状态更新到视图中
+        document.getElementById('count').innerText = store.getState().count
+    })
+
+    //4. 通过store实例的dispatch函数提交action更改状态
+    const inBtn = document.getElementById('increment')
+    inBtn.addEventListener('click', () => {
+        //增
+        store.dispatch({
+            type: 'Increment'
+        })
+
+    })
+
+    const dBtn = document.getElementById('decrement')
+    dBtn.addEventListener('click', () => {
+        //减
+        store.dispatch({
+            type: 'Decrement'
+        })
+
+    })
+
+</script>
