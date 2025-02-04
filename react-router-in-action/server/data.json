@@ -83,6 +83,27 @@
       "date": "2023-04-03T11:14:56.036Z",
       "useFor": "food",
       "id": 19
+    },
+    {
+      "type": "pay",
+      "money": -888,
+      "date": "2025-02-28T08:21:42.135Z",
+      "useFor": "travel",
+      "id": 6
+    },
+    {
+      "type": "income",
+      "money": 10000,
+      "date": "2025-02-20T06:45:54.004Z",
+      "useFor": "salary",
+      "id": 7
+    },
+    {
+      "type": "pay",
+      "money": -10,
+      "date": "2025-02-22T07:17:12.531Z",
+      "useFor": "drinks",
+      "id": 8
     }
   ]
 }

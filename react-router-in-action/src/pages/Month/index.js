@@ -1,28 +1,29 @@
 import { NavBar, DatePicker } from "antd-mobile";
 import './index.scss'
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import classNames from "classnames";
 import dayjs from "dayjs";
 import { useSelector } from "react-redux";
 import _ from 'lodash'
+import DailyBill from "./components/DayBill";
 
 const Month = () => {
   const [dateVisible, setDateVisible] = useState(false)
   const [currentDate, setCurrentDate] = useState(() => {
-    dayjs().format('YYYY-MM')
+    return dayjs().format('YYYY-MM')
   })
   const [currentMonthList, setCurrentMontList] = useState([])
   const onConfirm = (val) => {
     setDateVisible(false)
     const formateDate = dayjs(val).format('YYYY-MM')
     setCurrentDate(formateDate)
-    console.log(monthGroup[formateDate])
-    setCurrentMontList(monthGroup[formateDate])
-
+    setCurrentMontList(monthGroupData[formateDate])
   }
   const billList = useSelector(state => state.bill.billList)
+  console.log('currentMonthList:', currentMonthList)
+  console.log('billList:', billList)
   //useMemo，依赖的数据发生变化时就会重新执行回调函数重新计算,常用来作为对状态变量进行计算并重新返回一个新的值
-  const monthGroup = useMemo(() => {
+  const monthGroupData = useMemo(() => {
     //return出去计算之后的值
     return _.groupBy(billList, (item) => dayjs(item.date).format('YYYY-MM'))
   }, [billList])
@@ -34,6 +35,17 @@ const Month = () => {
       pay, income, total: pay + income
     }
   }, [currentMonthList])
+
+  //初始加载时把当前月的统计数据显示出来
+  useEffect(() => {
+    const nowDate = dayjs().format('YYYY-MM')
+    if (monthGroupData[nowDate]) {
+      setCurrentMontList(monthGroupData[nowDate])
+    }
+  }, [monthGroupData])
+
+
+
   return (
     <div className="monthlyBill">
       <NavBar className="nav" backArrow={false}>
@@ -76,6 +88,8 @@ const Month = () => {
             onCancel={() => { setDateVisible(false) }}
           />
         </div>
+        {/*单日列表统计*/}
+        <DailyBill />
       </div>
     </div>
   )
