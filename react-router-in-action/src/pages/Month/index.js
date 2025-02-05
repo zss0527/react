@@ -23,10 +23,16 @@ const Month = () => {
   console.log('currentMonthList:', currentMonthList)
   console.log('billList:', billList)
   //useMemo，依赖的数据发生变化时就会重新执行回调函数重新计算,常用来作为对状态变量进行计算并重新返回一个新的值
-  const monthGroupData = useMemo(() => {
+  const monthGroupData = useMemo(() => {  //按月分组的数据
     //return出去计算之后的值
     return _.groupBy(billList, (item) => dayjs(item.date).format('YYYY-MM'))
   }, [billList])
+  const { dayGroupData, dayGroupKeys } = useMemo(() => {  //按月分组的数据
+    //return出去计算之后的值
+    const dayGroupData = _.groupBy(currentMonthList, (item) => dayjs(item.date).format('YYYY-MM-DD'))
+    const dayGroupKeys = Object.keys(dayGroupData)
+    return { dayGroupData, dayGroupKeys }
+  }, [currentMonthList])
   const monthResult = useMemo(() => {
     //支出、收入、结余
     const pay = currentMonthList.filter(item => item.type === 'pay').reduce((a, c) => a + c.money, 0)
@@ -35,6 +41,7 @@ const Month = () => {
       pay, income, total: pay + income
     }
   }, [currentMonthList])
+
 
   //初始加载时把当前月的统计数据显示出来
   useEffect(() => {
@@ -89,7 +96,11 @@ const Month = () => {
           />
         </div>
         {/*单日列表统计*/}
-        <DailyBill />
+        {
+          dayGroupKeys.map(key => {
+            return <DailyBill key={key} date={key} dayBillList={dayGroupData[key]} />
+          })
+        }
       </div>
     </div>
   )
