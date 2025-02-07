@@ -1,5 +1,6 @@
 
 import axios from "axios";
+import { getToken } from "./token";
 
 /*封装axios
 1. 根域名配置
@@ -13,6 +14,12 @@ const request = axios.create({
 
 //请求拦截器，发送请求前做一些自定义配置
 request.interceptors.request.use((config) => {
+  //统一为请求注入token
+  const token = getToken()
+  if (token) {
+    //Bearer方式，跟后段接口保持一致
+    config.headers.Authorization = `Bearer ${token}`
+  }
   return config
 }, (error) => {
   return Promise.reject(error)
