@@ -1,14 +1,29 @@
 import './index.scss'
-import { Card, Form, Input, Button } from 'antd'
+import { Card, Form, Input, Button, message } from 'antd'
 import logo from '@/assets/logo.png'
+//用dispatch触发action
+import { useDispatch } from 'react-redux'
+import { fetchLogin } from '@/store/modules/user'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
-  const onFinish = (values) => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const onFinish = async (values) => {
     console.log('Success:', values);
+    //触发异步action fetchLogin
+    //由于调用的是异步的，所以下面的dispath行是异步执行的
+    await dispatch(fetchLogin(values))
+    //登录完毕后要做的事
+    //1.跳转到主页
+    navigate('/')
+    //2.提示用户登录状况
+    message.success('登录成功')
   };
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
+
   return (
     <div className="login">
       <Card className="login-container">
@@ -37,8 +52,8 @@ const Login = () => {
             <Input size="large" placeholder="请输入手机号" />
           </Form.Item>
           <Form.Item
-            // label="Password"
-            name="passcode"
+            // label="Password"只有code:246810才能通过后端验证
+            name="code"
             rules={[
               {
                 required: true,
