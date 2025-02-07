@@ -1,5 +1,5 @@
 //用户相关的状态管理
-import { request } from "@/utils";
+import { getToken, setToken as _setToken, request } from "@/utils";
 import { createSlice } from "@reduxjs/toolkit";
 
 //创建store
@@ -7,12 +7,15 @@ const userStore = createSlice({
   name: "user",
   //数据状态
   initialState: {
-    token: ''
+    //redux中每次浏览器刷新都会使所有state值为这里的初始值
+    token: getToken() || ''  //防止登录后刷新浏览器state丢失token
   },
   //同步的状态修改方法
   reducers: {
     setToken(state, action) {
       state.token = action.payload
+      //localStorage存一份
+      _setToken(action.payload)
     }
   }
 })
