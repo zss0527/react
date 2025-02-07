@@ -3,6 +3,12 @@ import { Card, Form, Input, Button } from 'antd'
 import logo from '@/assets/logo.png'
 
 const Login = () => {
+  const onFinish = (values) => {
+    console.log('Success:', values);
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
   return (
     <div className="login">
       <Card className="login-container">
@@ -10,6 +16,9 @@ const Login = () => {
         {/* 登录表单 */}
         <Form
           validateTrigger="onBlur"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
         >
           <Form.Item
             // label="Username"
