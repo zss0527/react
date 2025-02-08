@@ -1,5 +1,6 @@
 //用户相关的状态管理
-import { getToken, setToken as _setToken, request, removeToken } from "@/utils";
+import { getProfileAPI, loginAPI } from "@/apis/user";
+import { getToken, setToken as _setToken, removeToken } from "@/utils";
 import { createSlice } from "@reduxjs/toolkit";
 
 //创建store
@@ -36,7 +37,8 @@ const { setToken, setUserInfo, clearUserInfo } = userStore.actions
 const fetchLogin = (loginForm) => {
   return async (dispatch) => {
     //1.发送异步请求
-    const res = await request.post('/authorizations', loginForm)
+    // const res = await request.post('/authorizations', loginForm)
+    const res = await loginAPI(loginForm)
     //2.提交同步action进行token的状态存入
     dispatch(setToken(res.data.token))
   }
@@ -44,7 +46,8 @@ const fetchLogin = (loginForm) => {
 
 const fetchUserInfo = () => {
   return async (dispatch) => {
-    const res = await request.get('/user/profile')
+    // const res = await request.get('/user/profile')
+    const res = await getProfileAPI()
     dispatch(setUserInfo(res.data))
   }
 }
