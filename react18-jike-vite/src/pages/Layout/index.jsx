@@ -7,6 +7,9 @@ import {
 } from '@ant-design/icons'
 import './index.scss'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchUserInfo, clearUserInfo } from '@/store/modules/user'
 
 const { Header, Sider } = Layout
 
@@ -43,27 +46,27 @@ const GeekLayout = () => {
   const selectedkey = location.pathname
 
   // 触发个人用户信息action
-  // const dispatch = useDispatch()
-  // useEffect(() => {
-  //   dispatch(fetchUserInfo())
-  // }, [dispatch])
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchUserInfo())
+  }, [dispatch])
 
   // 退出登录确认回调
-  // const onConfirm = () => {
-  //   console.log('确认退出')
-  //   dispatch(clearUserInfo())
-  //   navigate('/login')
-  // }
+  const onExitConfirm = () => {
+    console.log('确认退出')
+    dispatch(clearUserInfo())
+    navigate('/login')
+  }
 
-  // const name = useSelector(state => state.user.userInfo.name)
+  const name = useSelector(state => state.user.userInfo.name)
   return (
     <Layout>
       <Header className="header">
         <div className="logo" />
         <div className="user-info">
-          <span className="user-name">{"zss0527"}</span>
+          <span className="user-name">{name}</span>
           <span className="user-logout">
-            <Popconfirm title="是否确认退出？" okText="退出" cancelText="取消" >
+            <Popconfirm title="是否确认退出？" okText="退出" cancelText="取消" onConfirm={onExitConfirm}>
               <LogoutOutlined /> 退出
             </Popconfirm>
           </span>

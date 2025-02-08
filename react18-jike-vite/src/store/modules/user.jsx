@@ -1,5 +1,5 @@
 //用户相关的状态管理
-import { getToken, setToken as _setToken, request } from "@/utils";
+import { getToken, setToken as _setToken, request, removeToken } from "@/utils";
 import { createSlice } from "@reduxjs/toolkit";
 
 //创建store
@@ -8,7 +8,8 @@ const userStore = createSlice({
   //数据状态
   initialState: {
     //redux中每次浏览器刷新都会使所有state值为这里的初始值
-    token: getToken() || ''  //防止登录后刷新浏览器state丢失token
+    token: getToken() || '',  //防止登录后刷新浏览器state丢失token
+    userInfo: {},
   },
   //同步的状态修改方法
   reducers: {
@@ -16,12 +17,20 @@ const userStore = createSlice({
       state.token = action.payload
       //localStorage存一份
       _setToken(action.payload)
+    },
+    setUserInfo(state, action) {
+      state.userInfo = action.payload
+    },
+    clearUserInfo(state) {
+      state.token = ''
+      state.userInfo = {}
+      removeToken()
     }
   }
 })
 
 //解构actionCreater
-const { setToken } = userStore.actions
+const { setToken, setUserInfo, clearUserInfo } = userStore.actions
 
 //异步方法，登录获取token
 const fetchLogin = (loginForm) => {
@@ -33,7 +42,14 @@ const fetchLogin = (loginForm) => {
   }
 }
 
+const fetchUserInfo = () => {
+  return async (dispatch) => {
+    const res = await request.get('/user/profile')
+    dispatch(setUserInfo(res.data))
+  }
+}
+
 //获取reducer函数
 const userReducer = userStore.reducer
-export { fetchLogin }
+export { fetchLogin, fetchUserInfo, clearUserInfo }
 export default userReducer
