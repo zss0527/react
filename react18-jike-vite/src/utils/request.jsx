@@ -1,6 +1,8 @@
 
 import axios from "axios";
-import { getToken } from "./token";
+import { getToken, removeToken } from "./token";
+import router from "@/router";
+import { message } from "antd";
 
 /*封装axios
 1. 根域名配置
@@ -31,6 +33,13 @@ request.interceptors.response.use((response) => {
   return response.data
 }, (error) => {
   //超出2xx对错误做处理
+  //监控401 token失效
+  console.log('error:', error)
+  if (error.response.status === 401) {
+    message.error('token失效，请重新登录！')
+    removeToken()
+    router.navigate('/login')
+  }
   return Promise.reject(error)
 })
 export { request }
