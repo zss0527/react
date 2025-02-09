@@ -95,8 +95,9 @@ const Publish = () => {
       }))
     }
     // 只有有id的时候才能调用此函数回填
-    getArticleDetail()
-
+    if (articleId) {
+      getArticleDetail()
+    }
     // 2. 调用实例方法 完成回填
   }, [articleId, form])
 
