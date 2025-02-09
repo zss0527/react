@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 
 const Article = () => {
+  //用于接收url?k=v的形式
   const [params] = useSearchParams();
 
   const id = params.get("id");
