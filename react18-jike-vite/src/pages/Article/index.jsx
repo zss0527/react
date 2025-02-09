@@ -1,5 +1,7 @@
 const Article = () => {
-  return <div> article page works!</div>
+  return <>
+    <div>article works!</div>
+  </>
 }
 
 export default Article
