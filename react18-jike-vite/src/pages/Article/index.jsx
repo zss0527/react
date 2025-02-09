@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { Card, Breadcrumb, Form, Button, Radio, DatePicker, Select, Popconfirm } from 'antd'
+import { Card, Breadcrumb, Form, Button, Radio, DatePicker, Select, Popconfirm, message } from 'antd'
 // 引入汉化包 时间选择器显示中文
 import locale from 'antd/es/date-picker/locale/zh_CN'
 // 导入资源
@@ -8,7 +8,7 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import img404 from '@/assets/error.png'
 import { useChannel } from '@/hooks/userChannel'
 import { useEffect, useState } from 'react'
-import { getArticleListAPI } from '@/apis/article'
+import { getArticleListAPI, delArticleAPI } from '@/apis/article'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -65,7 +65,7 @@ const Article = () => {
             <Popconfirm
               title="删除文章"
               description="确认要删除当前文章吗?"
-              // onConfirm={() => onConfirm(data)}
+              onConfirm={() => onConfirm(data)}
               okText="Yes"
               cancelText="No"
             >
@@ -141,13 +141,14 @@ const Article = () => {
   }
 
   // // 删除
-  // const onConfirm = async (data) => {
-  //   console.log('删除点击了', data)
-  //   await delArticleAPI(data.id)
-  //   setReqData({
-  //     ...reqData
-  //   })
-  // }
+  const onConfirm = async (data) => {
+    console.log('删除点击了', data)
+    await delArticleAPI(data.id)
+    setReqData({
+      ...reqData  //理解useEffect的依赖项，这里即使reqData的内容没有改变也会触发useEffect函数的执行，因为依赖值发生了改变
+    })
+    message.success('删除文章成功')
+  }
 
   return (
     <div>

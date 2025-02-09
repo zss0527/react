@@ -21,7 +21,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'publish',
-                element: <Publish />
+                element: <Publish />,
             }
         ]
     },
