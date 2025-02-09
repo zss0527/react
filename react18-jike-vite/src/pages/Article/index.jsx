@@ -2,7 +2,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Card, Breadcrumb, Form, Button, Radio, DatePicker, Select, Popconfirm } from 'antd'
 // 引入汉化包 时间选择器显示中文
 import locale from 'antd/es/date-picker/locale/zh_CN'
-
 // 导入资源
 import { Table, Tag, Space } from 'antd'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
@@ -122,15 +121,24 @@ const Article = () => {
     // reqData依赖项发生变化 重复执行副作用函数,利用useEffect依赖数组的特性完成这一点
   }
 
-  // // 分页
-  // const onPageChange = (page) => {
-  //   console.log(page)
-  //   // 修改参数依赖项 引发数据的重新获取列表渲染
-  //   setReqData({
-  //     ...reqData,
-  //     page
-  //   })
-  // }
+  /*
+    分页有两种方案：
+      1. 前端分页，只请求一次，后段一次性返回所有数据，前端拿到数据后自己实现分页逻辑
+        优点：网络请求次数少
+        缺点：后段压力增大，请求时常变长
+      2. 后端分页，每次请求前端指定页码和每页条数，后段只返回本页数据
+        优点：前后端压力都变小
+        缺点：频繁网络请求增加后段负载
+  */
+  //后端分页
+  const onPageChange = (page) => {
+    console.log('page:', page)
+    // 修改参数依赖项 引发数据的重新获取列表渲染
+    setReqData({
+      ...reqData,
+      page
+    })
+  }
 
   // // 删除
   // const onConfirm = async (data) => {
@@ -188,7 +196,7 @@ const Article = () => {
         <Table rowKey="id" columns={columns} dataSource={list} pagination={{
           total: count,
           pageSize: reqData.per_page,
-          // onChange: onPageChange
+          onChange: onPageChange
         }} />
       </Card>
     </div>
