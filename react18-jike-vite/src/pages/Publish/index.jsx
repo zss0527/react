@@ -15,25 +15,15 @@ import { Link } from 'react-router-dom'
 import './index.scss'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { useEffect, useState } from 'react';
-import { createArticle, getChannelAPI } from '@/apis/article';
-
-// import { createArticleAPI, getArticleById, updateArticleAPI } from '@/apis/article'
-// import { useChannel } from '@/hooks/useChannel'
+import { useState } from 'react';
+import { createArticleAPI } from '@/apis/article';
+import { useChannel } from '@/hooks/userChannel'
 
 const { Option } = Select
 
 const Publish = () => {
   // 获取频道列表
-  const [channelList, setChannelList] = useState([])
-  // const { channelList } = useChannel()
-  useEffect(() => {
-    const getChannelList = async () => {
-      const res = await getChannelAPI()
-      setChannelList(res.data.channels)
-    }
-    getChannelList()
-  }, [])
+  const { channelList } = useChannel()
   // 提交表单
   const onFinish = (formValue) => {
     console.log(formValue)
@@ -57,7 +47,8 @@ const Publish = () => {
       channel_id
     }
     console.log('result:', reqData)
-    createArticle(reqData)
+    createArticleAPI(reqData)
+    message.success('发布文章成功！')
   }
   // // 校验封面类型imageType是否和实际的图片列表imageList数量是相等的
   // if (imageList.length !== imageType) return message.warning('封面类型和图片数量不匹配')
@@ -217,6 +208,5 @@ const Publish = () => {
     </div>
   )
 }
-
 
 export default Publish
