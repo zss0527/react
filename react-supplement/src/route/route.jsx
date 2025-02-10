@@ -7,6 +7,7 @@ import UseCallback from "../lab/useCallbackLab";
 import ForwardRefLab from "../lab/forwardRefLab";
 import UseInperativeHandleLab from "../lab/useInperativeHandleLab";
 import ZustandLab from "../lab/zustandLab";
+import Counter from "../lab/CounterClassComponent";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/useInperativeHandle",
         element: <UseInperativeHandleLab />
+      },
+      {
+        path: "/classComponent",
+        element: <Counter />
       },
       {
         path: "/zustand",

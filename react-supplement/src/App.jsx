@@ -12,6 +12,7 @@ function App() {
         <Link to="/useCallback">useCallback</Link>
         <Link to="/forwardRef">forwardRef</Link>
         <Link to="/useInperativeHandle">useInperativeHandle</Link>
+        <Link to="/classComponent">classComponent</Link>
         <Link to="/zustand">zustand</Link>
       </div>
       <div><Outlet /></div>
