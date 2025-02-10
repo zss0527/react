@@ -1,9 +1,10 @@
+import { Button } from 'antd-mobile'
 function App() {
 
   return (
     <>
       <div>
-        main page works
+        <Button color="success">this is button</Button>
       </div>
     </>
   )
