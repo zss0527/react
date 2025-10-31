@@ -84,7 +84,7 @@ function App() {
 
     //正确写法，用一个全新的对象替换原对象
     setStateObj({
-      ...stateObj,
+      ...stateObj,//展开操作符，react中常用的写法
       age: stateObj.age + 1
     });
   }
@@ -190,7 +190,7 @@ function App() {
       <button onClick={clickHandle}>基础事件绑定</button><br />
       {/*参数绑定事件处理1, on+事件名={()=>funcName(params)},驼峰命名*/}
       <button onClick={() => clickHandle('自定义参数')}>自定义参数事件绑定1</button><br />
-      {/*参数绑定事件处理2, on+事件名={()=>funcName(params)},同时获取自定义参数和e，驼峰命名*/}
+      {/*参数绑定事件处理2, on+事件名={(e)=>funcName(params, e)},同时获取自定义参数和e，驼峰命名*/}
       <button onClick={(e) => clickHandle2('自定义参数', e)}>自定义参数事件绑定2</button><br /><br />
 
       {/*渲染组件*/}
@@ -202,7 +202,10 @@ function App() {
       <button onClick={handleStateObjClick}>状态管理对象useState：name:{stateObj.name} age:{stateObj.age}</button>
 
       {/*React样式控制*/}
-      <p className="foo">React样式控制</p>
+      {/*行内样式，传一个对象，样式名用驼峰命名*/}
+      <p style={{ color: 'blue' }}>React行内样式</p>
+      {/*类名样式，className*/}
+      <p className="foo">React类名样式</p>
 
 
       {/*受控绑定表单*/}
