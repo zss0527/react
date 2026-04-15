@@ -6,6 +6,8 @@ import { fetchChannelList } from "./store/modules/channelStore";
 
 function App() {
   //使用useSelector获取store中的state数据，效果是subscribe
+  //这样写相当于订阅整个counter的initialState对象，对象中任何一个字段发生变化都会导致组件渲染
+  //如果只想订阅其中的某一个state变量，可以使用useSelector(state => state.counter.xxx)
   const { count } = useSelector(state => state.counter)
   const { channelList } = useSelector(state => state.channel)
   //使用useDispatch获取dispatch函数

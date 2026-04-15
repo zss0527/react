@@ -8,10 +8,10 @@
         Redux是react最常用的状态管理工具，用于解决组件之间的数据传递问题，可独立运行于任何UI层框架
         通过集中是管理的方式管理应用的状态
         Redux的核心概念：state、store、action、reducer
-        state: 一个对象，存放管理的数据状态
+        state: 一个对象，存放管理的状态数据
         store：一个对象，保存数据的地方，整个应用只有一个store，存放state
         action：一个对象，描述怎么修改数据
-        reducer：一个函数，根据action更新state
+        reducer：一个函数，根据action更新state，reducer类似vuex中module的概念，对store进行切分
         Redux的数据流：view -> action -> reducer -> store -> view
         Redux的工作流程：
         1.组件通过dispatch一个action来更新state

@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+    //Provider包裹跟组件，才能在所有组件中使用store
   <Provider store={store}>
     <App />
   </Provider>
