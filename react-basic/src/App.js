@@ -204,7 +204,7 @@ function App() {
       {/*React样式控制*/}
       {/*行内样式，传一个对象，样式名用驼峰命名*/}
       <p style={{ color: 'blue' }}>React行内样式</p>
-      {/*类名样式，className*/}
+      {/*类名样式，className,className原生不支持对象和数据，结合classNames库可以支持*/}
       <p className="foo">React类名样式</p>
 
 
@@ -225,10 +225,10 @@ function App() {
 
       {/*
       组件通信
-      1.自组件可通过props接收父组件传递的数据，数据类型可以是任意类型
-      2.props是只读的，不能在子组件中修改props，父组件数据智能在赋组件中修改
+      1.子组件可通过props接收父组件传递的数据，数据类型可以是任意类型
+      2.props是只读的，不能在子组件中修改props，父组件数据只能在赋组件中修改
       3.props.children是一个特殊的props，用于接收组件标签内部的内容
-      4.父组件给子组件定义函数，自组件通过调用props中的函数来实现子传父
+      4.父组件给子组件定义函数，子组件通过调用props中的函数来实现子传父
       5.通过状态提升（通过共同的父组件）来实现兄弟组件之间的通信
       6.通过context来实现跨层级组件通信,context是一个全局的数据存储对象，可以在任意组件中读取和修改数据,context的使用分为三步：
         6.1 使用React.createContext()创建一个上下文对象
@@ -261,7 +261,13 @@ function App() {
       />
       <br />
 
-      {/*useEffect清除副作用*/}
+      {/*useEffect
+      1. 没有依赖项：组件初始渲染时执行一次+组件更新时执行；
+      2. 空数组依赖：只在组件初始渲染时执行一次；
+      3. 添加特定依赖项：组件初始渲染时执行一次+依赖项变化时执行；
+      4. return的内容会在组件销毁时执行，常用来清除副作用；
+      */}
+
       <div>
         {flag && <EffectDemo />}
         <button onClick={toggle}>toggle</button>
@@ -296,7 +302,7 @@ function clickHandle2(params, e) {
 }
 
 function Son(props) {
-  console.log(props);
+  console.log('props:',props);
   const sonMsg = '子组件数据';
   const sonName = "this is sonName";
   return <>

@@ -6,6 +6,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+## react project init steps:
+```aiignore
+npx create-react-app react-basic
+```
+
 ### `npm start`
 
 Runs the app in the development mode.\
