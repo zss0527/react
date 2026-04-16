@@ -10,7 +10,7 @@ import App from "../App";
 import { createBrowserRouter } from "react-router-dom";
 
 //两种路由模式
-//history模式用createBrowerRouter
+//history模式用createBrowserRouter
 //hash模式用createHashRouter
 const router = createBrowserRouter([
   {

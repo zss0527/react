@@ -123,6 +123,12 @@
       "type": "pay",
       "money": -100,
       "useFor": "dessert"
+    },
+    {
+      "id": "1092",
+      "type": "pay",
+      "money": 0,
+      "useFor": ""
     }
   ]
 }
