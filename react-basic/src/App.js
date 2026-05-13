@@ -115,8 +115,8 @@ function App() {
   //useEffect还可以返回一个函数，这个函数就是清除函数，用于清除effect，会在每次组件卸载时执行清除函数
   //useEffect的第二个参数是一个数组，用于控制effect的执行时机
   //  如果不传第二个参数，effect会在每次组件重新渲染时执行
-  //  如果数组为空，effect只会在组件初次渲染时执行
-  //  如果数组内有特定依赖项，effect会在每次依赖项发生变化时执行
+  //  如果数组为空数组，effect只会在组件初次渲染时执行
+  //  如果数组内有特定依赖项，effect会在每次依赖项发生变化时执行，类似vue中的watch
   //useEffect(() => {},[])
   const URL = "http://geek.itheima.net/v1_0/channels";
   const [listData, setListData] = useState([]);
