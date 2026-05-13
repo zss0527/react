@@ -1,8 +1,12 @@
 .headerC{
   display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  padding-right: 20px;
 
   .dropdown{
-    margin-left: auto;
-    margin-right: 20px;
+    // margin-left: auto;
+    // margin-right: 20px;
   }
 }
