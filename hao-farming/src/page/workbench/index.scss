@@ -1,0 +1,73 @@
+.workbench {
+  padding: 16px;
+  background: #f0f2f5;
+  min-height: calc(100vh - 64px);
+
+  .stat-card {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      transform: translateY(-2px);
+    }
+
+    :global {
+      .ant-card-body {
+        padding: 20px;
+      }
+
+      .ant-statistic {
+        .ant-statistic-title {
+          font-size: 14px;
+          color: #8c8c8c;
+          margin-bottom: 8px;
+        }
+
+        .ant-statistic-content {
+          font-size: 28px;
+          font-weight: 600;
+
+          .ant-statistic-content-prefix {
+            margin-right: 8px;
+            font-size: 24px;
+          }
+        }
+      }
+    }
+
+    &.temperature-card {
+      border-left: 4px solid #ff4d4f;
+    }
+
+    &.humidity-card {
+      border-left: 4px solid #1890ff;
+    }
+
+    &.co2-card {
+      border-left: 4px solid #52c41a;
+    }
+
+    &.feed-card {
+      border-left: 4px solid #faad14;
+    }
+  }
+
+  .chart-card {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    :global {
+      .ant-card-body {
+        padding: 16px;
+      }
+    }
+  }
+}
+
